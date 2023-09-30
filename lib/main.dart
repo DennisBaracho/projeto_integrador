@@ -24,7 +24,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int kWh = 0;
+  int Wh = 0;
   int temp = 43;
   int eff = 75;
   double today = 3.4;
@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: Text(
-                      'Gerando agora: $kWh W',
+                      'Gerando agora: $Wh W',
                       style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w200,
