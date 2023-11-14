@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               ),
               //Temperatura
               const Text(
-                'Temperatura Interna',
+                'Temperatura Internaaaa',
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,
