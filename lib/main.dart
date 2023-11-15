@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 void main() {
   runApp(const MyApp());
@@ -198,10 +199,21 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 45,
               ),
-              SizedBox(
-                width: 273,
-                height: 119,
-                child: Image.asset('assets/images/meter.png'),
+              TextButton(
+                onPressed: read,
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  fixedSize: const Size(100, 100),
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                ),
+                child: const Text('Entrou',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    )),
               ),
               const SizedBox(
                 height: 33,
