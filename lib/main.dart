@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,12 +29,29 @@ class _HomePageState extends State<HomePage> {
   int temp = 43;
   int eff = 75;
   double today = 3.4;
+  final flutterReactiveBle = FlutterReactiveBle();
+
+  scan () {
+    flutterReactiveBle.scanForDevices(withServices: [], scanMode: ScanMode.lowLatency).listen((device) {
+      //code for handling results
+    }, );
+    flutterReactiveBle.connectToDevice(
+      id: foundDeviceId,
+      servicesWithCharacteristicsToDiscover: {: [pot, corrente]},
+      connectionTimeout: const Duration(seconds: 2),
+    ).listen((connectionState) {
+      // Handle connection state updates
+    }, onError: (Object error) {
+      // Handle a possible error
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     print('Build');
 
     return Scaffold(
+
       backgroundColor: Colors.black,
       body: Container(
         decoration: const BoxDecoration(
@@ -200,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                 height: 45,
               ),
               TextButton(
-                onPressed: read,
+                onPressed: scan,
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
                   fixedSize: const Size(100, 100),
