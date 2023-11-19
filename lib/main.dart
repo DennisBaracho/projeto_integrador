@@ -28,7 +28,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   final flutterReactiveBle = FlutterReactiveBle();
   final BleController c = Get.put(BleController());
 
@@ -42,7 +41,6 @@ class _HomePageState extends State<HomePage> {
     print('Build');
 
     return Scaffold(
-
       backgroundColor: Colors.black,
       body: Container(
         decoration: const BoxDecoration(
@@ -55,7 +53,11 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Obx(() =>Text('Tensão: ${c.tensao} V',),),
+              Obx(
+                () => Text(
+                  'Tensão: ${c.tensao} V',
+                ),
+              ),
               const SizedBox(
                 height: 52,
               ),
@@ -208,26 +210,14 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 45,
               ),
-     Obx(() => Container(
-      child: c.status != 'connected!'
-       ? ElevatedButton(onPressed: c.connect,
-      child: Text('connect',)): null)),
-              TextButton(
-                onPressed: c.connect,
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  fixedSize: const Size(100, 100),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                ),
-                child: const Text('Entrou',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                    )),
-              ),
+              Obx(() => Container(
+                  child: c.status != 'connected!'
+                      ? ElevatedButton(
+                          onPressed: c.connect,
+                          child: Text(
+                            'Conectar',
+                          ))
+                      : null)),
               const SizedBox(
                 height: 33,
               ),
