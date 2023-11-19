@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'dart:async';
+import 'package:get/get.dart';
+import 'blecontroller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,26 +28,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final flutterReactiveBle = FlutterReactiveBle();
+  final BleController c = Get.put(BleController());
+
   int Wh = 0;
   int temp = 43;
   int eff = 75;
   double today = 3.4;
-  final flutterReactiveBle = FlutterReactiveBle();
-
-  scan () {
-    flutterReactiveBle.scanForDevices(withServices: [], scanMode: ScanMode.lowLatency).listen((device) {
-      //code for handling results
-    }, );
-    flutterReactiveBle.connectToDevice(
-      id: foundDeviceId,
-      servicesWithCharacteristicsToDiscover: {: [pot, corrente]},
-      connectionTimeout: const Duration(seconds: 2),
-    ).listen((connectionState) {
-      // Handle connection state updates
-    }, onError: (Object error) {
-      // Handle a possible error
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +55,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Obx(() =>Text('Tensão: ${c.tensao} V',),),
               const SizedBox(
                 height: 52,
               ),
@@ -216,8 +208,12 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 45,
               ),
+     Obx(() => Container(
+      child: c.status != 'connected!'
+       ? ElevatedButton(onPressed: c.connect,
+      child: Text('connect',)): null)),
               TextButton(
-                onPressed: scan,
+                onPressed: c.connect,
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
                   fixedSize: const Size(100, 100),
