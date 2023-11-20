@@ -53,17 +53,12 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Obx(
-                () => Text(
-                  'Tensão: ${c.tensao} V',
-                ),
-              ),
               const SizedBox(
                 height: 52,
               ),
               //Temperatura
               const Text(
-                'Temperatura Internaaaa',
+                'Temperatura Interna',
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,
@@ -197,14 +192,16 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(5),
-                    child: Text(
-                      'Gerando agora: $Wh W',
-                      style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w200,
-                          color: Colors.white),
+                    child: Obx(
+                      () => Text(
+                        'Gerando agora: ${c.potencia} W',
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.white),
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
               const SizedBox(
@@ -212,11 +209,9 @@ class _HomePageState extends State<HomePage> {
               ),
               Obx(() => Container(
                   child: c.status != 'connected!'
-                      ? ElevatedButton(
+                      ? TextButton(
                           onPressed: c.connect,
-                          child: Text(
-                            'Conectar',
-                          ))
+                      child: Image.asset('assets/images/bluetooth.png',))
                       : null)),
               const SizedBox(
                 height: 33,

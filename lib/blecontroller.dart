@@ -8,7 +8,7 @@ class BleController {
   final flutterReactiveBle = FlutterReactiveBle();
   late StreamSubscription<ConnectionStateUpdate> connection;
   late QualifiedCharacteristic characteristic;
-  RxString tensao = ''.obs;
+  RxString potencia = ''.obs;
   RxString status = 'not connected'.obs;
 
   void connect() async {
@@ -41,8 +41,8 @@ class BleController {
         flutterReactiveBle
             .subscribeToCharacteristic(characteristic)
             .listen((data) {
-          tensao.value = String.fromCharCodes(data);
-          print(tensao);
+          potencia.value = String.fromCharCodes(data);
+          print(potencia);
         });
       }
     });
