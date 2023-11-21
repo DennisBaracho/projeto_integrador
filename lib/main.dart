@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
-import 'dart:async';
 import 'package:get/get.dart';
 import 'blecontroller.dart';
 
@@ -208,10 +207,12 @@ class _HomePageState extends State<HomePage> {
                 height: 45,
               ),
               Obx(() => Container(
-                  child: c.status != 'connected!'
+                  child: c.status != 'conectado!'
                       ? TextButton(
-                          onPressed: c.connect,
-                      child: Image.asset('assets/images/bluetooth.png',))
+                          onPressed: c.conectar,
+                          child: Image.asset(
+                            'assets/images/bluetooth.png',
+                          ))
                       : null)),
               const SizedBox(
                 height: 33,

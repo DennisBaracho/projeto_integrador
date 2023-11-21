@@ -1,45 +1,49 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:location_permissions/location_permissions.dart';
 
 class BleController {
-  final flutterReactiveBle = FlutterReactiveBle();
-  late StreamSubscription<ConnectionStateUpdate> connection;
+  final flutterReactiveBle =
+      FlutterReactiveBle(); //Iniciando o Flutter Reactive BLE
+  //Criando variáveis de conexão, característica, status e potência
+  late StreamSubscription<ConnectionStateUpdate> conexao;
   late QualifiedCharacteristic characteristic;
   RxString potencia = ''.obs;
-  RxString status = 'not connected'.obs;
+  RxString status = 'desconectado'.obs;
 
-  void connect() async {
+  //Função que realiza a conexão ao dispositivo BLE
+  void conectar() async {
     flutterReactiveBle
         .connectToDevice(
       id: '04:A3:16:A8:70:67',
       connectionTimeout: const Duration(seconds: 2),
     )
         .listen((connectionState) {
-      // Handle connection state updates
+      // Analisa o estado da conexão
     }, onError: (Object error) {
-      // Handle a possible error
+      // Lida com possíveis erros
     });
 
-    status.value = 'connecting...';
-    connection = flutterReactiveBle
+    // Avalia se os dispositivos já se conectaram
+    status.value = 'conectando...';
+    conexao = flutterReactiveBle
         .connectToDevice(id: '04:A3:16:A8:70:67')
         .listen((state) async {
-      if (state.connectionState == DeviceConnectionState.connected) {
-        status.value = 'connected!';
 
-        final characteristic = QualifiedCharacteristic(
+      // Se já conectado, começa a ler a característica
+      if (state.connectionState == DeviceConnectionState.connected) {
+        status.value = 'conectado!';
+        final caracteristica = QualifiedCharacteristic(
             serviceId: Uuid.parse("0000ffe0-0000-1000-8000-00805f9b34fb"),
             characteristicId:
                 Uuid.parse("0000ffe1-0000-1000-8000-00805f9b34fb"),
             deviceId: '04:A3:16:A8:70:67');
-        final response =
-            await flutterReactiveBle.readCharacteristic(characteristic);
+        final resposta =
+            await flutterReactiveBle.readCharacteristic(caracteristica);
 
+        // Mantém a característica sempre atualizada
         flutterReactiveBle
-            .subscribeToCharacteristic(characteristic)
+            .subscribeToCharacteristic(caracteristica)
             .listen((data) {
           potencia.value = String.fromCharCodes(data);
           print(potencia);
