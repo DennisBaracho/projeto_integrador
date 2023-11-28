@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
-import 'dart:async';
 import 'package:get/get.dart';
 import 'blecontroller.dart';
 
@@ -194,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.all(5),
                     child: Obx(
                       () => Text(
-                        'Gerando agora: ${c.potencia} W',
+                        'Tensão: ${c.potencia} V',
                         style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w200,
