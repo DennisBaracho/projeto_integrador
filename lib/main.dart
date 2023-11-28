@@ -34,6 +34,9 @@ class _HomePageState extends State<HomePage> {
   int temp = 43;
   int eff = 75;
   double today = 3.4;
+  int currentPageIndex = 0;
+  NavigationDestinationLabelBehavior labelBehavior =
+      NavigationDestinationLabelBehavior.alwaysShow;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +44,35 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: Colors.black,
+      bottomNavigationBar: NavigationBar(
+        backgroundColor: const Color(0xff363490),
+        labelBehavior: labelBehavior,
+        selectedIndex: currentPageIndex,
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        destinations: const <Widget>[
+          NavigationDestination(
+            icon: Icon(Icons.explore, color: Colors.white),
+            label: 'Início',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.commute, color: Colors.white),
+            label: 'Metas',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.commute, color: Colors.white),
+            label: 'Relatórios',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.bookmark, color: Colors.white),
+            icon: Icon(Icons.bookmark_border, color: Colors.white),
+            label: Text('Lucro')
+          ),
+        ],
+      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -210,7 +242,9 @@ class _HomePageState extends State<HomePage> {
                   child: c.status != 'connected!'
                       ? TextButton(
                           onPressed: c.connect,
-                      child: Image.asset('assets/images/bluetooth.png',))
+                          child: Image.asset(
+                            'assets/images/bluetooth.png',
+                          ))
                       : null)),
               const SizedBox(
                 height: 33,
