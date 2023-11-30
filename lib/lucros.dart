@@ -136,13 +136,13 @@ class _ProfitState extends State<Profit> {
                       ),
                     ),
                     const Positioned(
-                      left: 77,
+                      left: 40,
                       top: 50,
                       child: Text.rich(
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: ' Hoje\n\n\n',
+                              text: ' 3.4Wh\n\n\n',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,
@@ -152,7 +152,7 @@ class _ProfitState extends State<Profit> {
                               ),
                             ),
                             TextSpan(
-                              text: ' Wh',
+                              text: ' 0,635R\$/kWh',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,
@@ -167,10 +167,10 @@ class _ProfitState extends State<Profit> {
                       ),
                     ),
                     Positioned(
-                      left: 42,
-                      top: 76,
+                      left: 20,
+                      top: 73,
                       child: Text(
-                        '- $today -',
+                        'R\$0,002',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 48,
@@ -184,7 +184,7 @@ class _ProfitState extends State<Profit> {
                 ),
               ),
               const SizedBox(
-                height: 54,
+                height: 19,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
