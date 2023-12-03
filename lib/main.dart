@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:get/get.dart';
 import 'blecontroller.dart';
+import 'custom_icons_icons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -59,21 +60,20 @@ class _HomePageState extends State<HomePage> {
               setState(() => currentPageIndex),
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.explore, color: Colors.white),
+              icon: Icon(Icons.home, color: Colors.white),
               label: 'Início',
             ),
             NavigationDestination(
-              icon: Icon(Icons.commute, color: Colors.white),
+              icon: Icon(CustomIcons.goals, color: Colors.white),
               label: 'Metas',
             ),
             NavigationDestination(
-              icon: Icon(Icons.commute, color: Colors.white),
+              icon: Icon(Icons.calendar_month_outlined, color: Colors.white),
               label: 'Relatórios',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Icons.bookmark, color: Colors.white),
-              icon: Icon(Icons.bookmark_border, color: Colors.white),
-              label: "LUcro",
+              icon: Icon(Icons.wallet_outlined, color: Colors.white),
+              label: "Lucro",
             ),
           ],
         ),
