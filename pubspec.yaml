@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_reactive_ble: ^5.2.0
   custom_navigation_bar: ^0.8.2
+  percent_indicator: ^4.2.3
 
 dev_dependencies:
   flutter_test:

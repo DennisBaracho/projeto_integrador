@@ -32,9 +32,10 @@ class _NavigatorState extends State<Navigator> {
 
   List<Widget> _screens = [
     HomePage(),
-    Profit(),
-    Reports(),
     Goals(),
+    Reports(),
+    Profit(),
+
   ];
 
   @override

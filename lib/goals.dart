@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:get/get.dart';
 import 'blecontroller.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class Goals extends StatefulWidget {
   const Goals({super.key});
@@ -49,127 +50,43 @@ class _GoalsState extends State<Goals> {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 50,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 56,
-                    height: 37,
-                    child: Image.asset('assets/images/profit.png'),
-                  ),
-                ],
+                children: [],
               ),
               const SizedBox(
                 height: 44,
               ),
               //Economia de Energia
               const Text(
-                'Economia de hoje:',
+                'Progresso:',
                 style: TextStyle(
                   fontSize: 24,
                   color: Colors.white,
                   fontWeight: FontWeight.w200,
                 ),
               ),
-
-
-              //Medidor de Wh hoje
-              SizedBox(
-                width: 213,
-                height: 209,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      left: 0,
-                      top: 0,
-                      child: Container(
-                        width: 213,
-                        height: 209,
-                        decoration: const ShapeDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment(-0.00, -1.00),
-                            end: Alignment(0, 1),
-                            colors: [
-                              Color.fromRGBO(255, 255, 255, 0.5),
-                              Color.fromRGBO(255, 255, 255, 0.5)
-                            ],
-                          ),
-                          shape: OvalBorder(),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 7,
-                      top: 8,
-                      child: Container(
-                        width: 200,
-                        height: 193,
-                        decoration: const ShapeDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment(-0.00, -1.00),
-                            end: Alignment(0, 1),
-                            colors: [
-                              Color.fromRGBO(54, 52, 144, 0.7),
-                              Color.fromRGBO(20, 20, 180, 0.7)
-                            ],
-                          ),
-                          shape: OvalBorder(),
-                        ),
-                      ),
-                    ),
-                    const Positioned(
-                      left: 40,
-                      top: 50,
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: ' 3.4Wh\n\n\n',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w300,
-                                height: 0,
-                              ),
-                            ),
-                            TextSpan(
-                              text: ' 0,635R\$/kWh',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w300,
-                                height: 0,
-                              ),
-                            ),
-                          ],
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Positioned(
-                      left: 20,
-                      top: 73,
-                      child: Text(
-                        'R\$0,002',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 48,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w300,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ],
+              const Text(
+                '53%',
+                style: TextStyle(
+                  fontSize: 48,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w200,
                 ),
               ),
-              const SizedBox(
-                height: 19,
-              ),
+        CircularPercentIndicator(
+            radius: 100.0,
+            lineWidth: 10.0,
+            percent: 0.3,
+          progressColor: Colors.white,
+         backgroundColor: Color(0xFF6B56B9),
+            center: Icon(
+              Icons.thunderstorm,
+              size: 50.0,
+              color: Colors.blue,
+            ),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -181,14 +98,13 @@ class _GoalsState extends State<Goals> {
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: Obx(
-                          () =>
-                          Text(
-                            'Tensão: ${c.potencia} V',
-                            style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.white),
-                          ),
+                      () => Text(
+                        'Tensão: ${c.potencia} V',
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.white),
+                      ),
                     ),
                   )
                 ],
@@ -196,15 +112,14 @@ class _GoalsState extends State<Goals> {
               const SizedBox(
                 height: 45,
               ),
-              Obx(() =>
-                  Container(
-                      child: c.status != 'connected!'
-                          ? TextButton(
+              Obx(() => Container(
+                  child: c.status != 'connected!'
+                      ? TextButton(
                           onPressed: c.connect,
                           child: Image.asset(
                             'assets/images/bluetooth.png',
                           ))
-                          : null)),
+                      : null)),
               const SizedBox(
                 height: 33,
               ),
