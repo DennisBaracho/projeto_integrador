@@ -14,19 +14,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Profit(),
+      home: Reports(),
     );
   }
 }
 
-class Profit extends StatefulWidget {
-  const Profit({super.key});
+class Reports extends StatefulWidget {
+  const Reports({super.key});
 
   @override
-  State<Profit> createState() => _ProfitState();
+  State<Reports> createState() => _ReportsState();
 }
 
-class _ProfitState extends State<Profit> {
+class _ReportsState extends State<Reports> {
   final flutterReactiveBle = FlutterReactiveBle();
   final BleController c = Get.put(BleController());
 

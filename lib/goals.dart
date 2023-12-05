@@ -2,32 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:get/get.dart';
 import 'blecontroller.dart';
-import 'custom_icons_icons.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Goals extends StatefulWidget {
+  const Goals({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
-    );
-  }
+  State<Goals> createState() => _GoalsState();
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class _GoalsState extends State<Goals> {
   final flutterReactiveBle = FlutterReactiveBle();
   final BleController c = Get.put(BleController());
 
@@ -35,10 +18,6 @@ class _HomePageState extends State<HomePage> {
   int temp = 43;
   int eff = 75;
   double today = 3.4;
-  int currentPageIndex = 0;
-  NavigationDestinationLabelBehavior labelBehavior =
-      NavigationDestinationLabelBehavior.alwaysShow;
-  MaterialStateProperty<TextStyle?>? labelTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -46,38 +25,6 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      bottomNavigationBar: NavigationBarTheme(
-        data: NavigationBarThemeData(
-          backgroundColor: const Color(0xff363490),
-          labelTextStyle: MaterialStateProperty.all(
-            const TextStyle(color: Colors.white),
-          ),
-        ),
-        child: NavigationBar(
-          selectedIndex: currentPageIndex,
-          labelBehavior: labelBehavior,
-          onDestinationSelected: (currentPageIndex) =>
-              setState(() => currentPageIndex),
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.home, color: Colors.white),
-              label: 'Início',
-            ),
-            NavigationDestination(
-              icon: Icon(CustomIcons.goals, color: Colors.white),
-              label: 'Metas',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.calendar_month_outlined, color: Colors.white),
-              label: 'Relatórios',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.wallet_outlined, color: Colors.white),
-              label: "Lucro",
-            ),
-          ],
-        ),
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -90,39 +37,44 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 52,
+                height: 100,
               ),
               //Temperatura
               const Text(
-                'Temperatura Interna',
+                '05/09/2023',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 40,
                   color: Colors.white,
                   fontWeight: FontWeight.w200,
                 ),
+              ),
+              const SizedBox(
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 55,
-                    height: 53,
-                    child: Image.asset('assets/images/temperature.png'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: Text('$temp º',
-                        style: const TextStyle(
-                          fontSize: 48,
-                          fontWeight: FontWeight.w200,
-                          color: Colors.white,
-                        )),
+                    width: 56,
+                    height: 37,
+                    child: Image.asset('assets/images/profit.png'),
                   ),
                 ],
               ),
               const SizedBox(
-                height: 45,
+                height: 44,
               ),
+              //Economia de Energia
+              const Text(
+                'Economia de hoje:',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w200,
+                ),
+              ),
+
+
               //Medidor de Wh hoje
               SizedBox(
                 width: 213,
@@ -168,13 +120,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const Positioned(
-                      left: 77,
+                      left: 40,
                       top: 50,
                       child: Text.rich(
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: ' Hoje\n\n\n',
+                              text: ' 3.4Wh\n\n\n',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,
@@ -184,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             TextSpan(
-                              text: ' Wh',
+                              text: ' 0,635R\$/kWh',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,
@@ -199,10 +151,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Positioned(
-                      left: 42,
-                      top: 76,
+                      left: 20,
+                      top: 73,
                       child: Text(
-                        '- $today -',
+                        'R\$0,002',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 48,
@@ -216,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(
-                height: 54,
+                height: 19,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -229,13 +181,14 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: Obx(
-                      () => Text(
-                        'Tensão: ${c.potencia} V',
-                        style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.white),
-                      ),
+                          () =>
+                          Text(
+                            'Tensão: ${c.potencia} V',
+                            style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.white),
+                          ),
                     ),
                   )
                 ],
@@ -243,14 +196,15 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 45,
               ),
-              Obx(() => Container(
-                  child: c.status != 'connected!'
-                      ? TextButton(
+              Obx(() =>
+                  Container(
+                      child: c.status != 'connected!'
+                          ? TextButton(
                           onPressed: c.connect,
                           child: Image.asset(
                             'assets/images/bluetooth.png',
                           ))
-                      : null)),
+                          : null)),
               const SizedBox(
                 height: 33,
               ),
