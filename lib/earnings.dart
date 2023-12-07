@@ -62,19 +62,20 @@ class _ProfitState extends State<Profit> {
                 ],
               ),
               const SizedBox(
-                height: 44,
+                height: 30,
               ),
               //Economia de Energia
               const Text(
                 'Economia de hoje:',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 30,
                   color: Colors.white,
                   fontWeight: FontWeight.w200,
                 ),
               ),
-
-
+              const SizedBox(
+                height: 20,
+              ),
               //Medidor de Wh hoje
               SizedBox(
                 width: 213,
@@ -168,58 +169,107 @@ class _ProfitState extends State<Profit> {
                 ),
               ),
               const SizedBox(
-                height: 19,
+                height: 20,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: 45,
-                    height: 46.22,
-                    child: Image.asset('assets/images/power.png'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Obx(
-                          () =>
-                          Text(
-                            'Tensão: ${c.potencia} V',
-                            style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.white),
-                          ),
+                    width: 147,
+                    height: 19,
+                    child: Text(
+                      'Economia mensal:',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w300,
+                        height: 0,
+                      ),
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    width: 125,
+                    height: 19,
+                    child: Text(
+                      'Economia total:',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w300,
+                        height: 0,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(
-                height: 45,
+                height: 12,
               ),
-              Obx(() =>
-                  Container(
-                      child: c.status != 'connected!'
-                          ? TextButton(
-                          onPressed: c.connect,
-                          child: Image.asset(
-                            'assets/images/bluetooth.png',
-                          ))
-                          : null)),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children:[
+                    SizedBox(
+                      width: 112,
+                      height: 42,
+                      child: Text(
+                        'R\$0,12',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 36,
+                          fontFamily: 'Open Sans',
+                          fontWeight: FontWeight.w300,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 93,
+                      height: 42,
+                      child: Text(
+                        'R\$0,6',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 36,
+                          fontFamily: 'Open Sans',
+                          fontWeight: FontWeight.w300,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ],
+              ),
               const SizedBox(
-                height: 33,
+                height: 20,
               ),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    'Eficiência Elétrica: $eff%',
-                    style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w200,
-                        color: Colors.white),
-                  ),
-                ),
-              ]),
+              Row(mainAxisAlignment: MainAxisAlignment.center,
+                  children:[
+                    Container(
+                      width: 312.92,
+                      height: 51.32,
+                      decoration: ShapeDecoration(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 252,
+                      height: 28,
+                      child: Text(
+                        'Insira o valor do kWh',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFF9D9D9D),
+                          fontSize: 24,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                      ),
+                    )
+                  ],
+              ),
             ]),
       ),
     );
