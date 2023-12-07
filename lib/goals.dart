@@ -12,9 +12,6 @@ class Goals extends StatefulWidget {
 }
 
 class _GoalsState extends State<Goals> {
-  final flutterReactiveBle = FlutterReactiveBle();
-  final BleController c = Get.put(BleController());
-
   int Wh = 0;
   int temp = 43;
   int eff = 75;
@@ -87,54 +84,6 @@ class _GoalsState extends State<Goals> {
               size: 50.0,
               color: Colors.blue,
             ),),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 45,
-                    height: 46.22,
-                    child: Image.asset('assets/images/power.png'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Obx(
-                      () => Text(
-                        'Tensão: ${c.potencia} V',
-                        style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.white),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 45,
-              ),
-              Obx(() => Container(
-                  child: c.status != 'connected!'
-                      ? TextButton(
-                          onPressed: c.connect,
-                          child: Image.asset(
-                            'assets/images/bluetooth.png',
-                          ))
-                      : null)),
-              const SizedBox(
-                height: 33,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    'Eficiência Elétrica: $eff%',
-                    style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w200,
-                        color: Colors.white),
-                  ),
-                ),
-              ]),
             ]),
       ),
     );
