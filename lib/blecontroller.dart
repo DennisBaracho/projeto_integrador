@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:location_permissions/location_permissions.dart';
 
 class BleController {
   final flutterReactiveBle = FlutterReactiveBle();
