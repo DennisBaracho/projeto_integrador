@@ -44,7 +44,7 @@ class _ProfitState extends State<Profit> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(
-                        height: 100,
+                        height: 30,
                       ),
                       //Temperatura
                       Text(
@@ -278,7 +278,7 @@ class _ProfitState extends State<Profit> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.only(left: 60.0, top: 5.0, right: 60.0, bottom: 10.0),
                         child: Form(
                           child: TextFormField(
                               key: Key('goals'),

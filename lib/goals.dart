@@ -43,7 +43,7 @@ class _GoalsState extends State<Goals> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const SizedBox(
-                          height: 100,
+                          height: 30,
                         ),
                         //Temperatura
                         Text(
@@ -56,7 +56,7 @@ class _GoalsState extends State<Goals> {
                           ),
                         ),
                         const SizedBox(
-                          height: 48,
+                          height: 38,
                         ),
                         //Economia de Energia
                         const Text(
@@ -113,7 +113,7 @@ class _GoalsState extends State<Goals> {
                               ),
                             ]),
                         const SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Padding(
                           padding: EdgeInsets.all(20),
@@ -155,7 +155,7 @@ class _GoalsState extends State<Goals> {
                           ),
                         ),
                   Padding(
-                      padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.only(left: 60.0, top: 5.0, right: 60.0, bottom: 10.0),
                       child: Form(
                         child: TextFormField(
                             key: Key('goals'),
