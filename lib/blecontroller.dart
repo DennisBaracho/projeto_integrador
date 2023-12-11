@@ -1,6 +1,7 @@
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'dart:async';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class BleController {
   final flutterReactiveBle = FlutterReactiveBle();

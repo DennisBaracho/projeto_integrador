@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 class Goals extends StatefulWidget {
   const Goals({super.key});
@@ -10,10 +11,10 @@ class Goals extends StatefulWidget {
 }
 
 class _GoalsState extends State<Goals> {
-  int Wh = 0;
-  int temp = 43;
+
   final _valor = TextEditingController();
   double meta = 0;
+
 
   @override
   Widget build(BuildContext context) {
