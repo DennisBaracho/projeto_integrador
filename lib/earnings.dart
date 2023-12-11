@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:get/get.dart';
 import 'blecontroller.dart';
+import 'package:provider/provider.dart';
 
 class Profit extends StatefulWidget {
   const Profit({super.key});
@@ -14,10 +15,8 @@ class _ProfitState extends State<Profit> {
   final flutterReactiveBle = FlutterReactiveBle();
   final BleController c = Get.put(BleController());
 
-  int Wh = 0;
-  int temp = 43;
-  int eff = 75;
-  double today = 3.4;
+  final _valor = TextEditingController();
+  double lucro = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +126,7 @@ class _ProfitState extends State<Profit> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: ' 3.4Wh\n\n\n',
+                              text: '3.4Wh\n\n\n',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,
@@ -137,7 +136,7 @@ class _ProfitState extends State<Profit> {
                               ),
                             ),
                             TextSpan(
-                              text: ' 0,635R\$/kWh',
+                              text: '0,635R\$/kWh',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,
@@ -152,7 +151,7 @@ class _ProfitState extends State<Profit> {
                       ),
                     ),
                     Positioned(
-                      left: 20,
+                      left: 14,
                       top: 73,
                       child: Text(
                         'R\$0,002',
@@ -175,10 +174,10 @@ class _ProfitState extends State<Profit> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: 147,
+                    width: 143,
                     height: 19,
                     child: Text(
-                      'Economia mensal:',
+                      'Mensal:',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -189,10 +188,10 @@ class _ProfitState extends State<Profit> {
                     ),
                   ),
                   SizedBox(
-                    width: 125,
+                    width: 100,
                     height: 19,
                     child: Text(
-                      'Economia total:',
+                      'Total:',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -211,13 +210,13 @@ class _ProfitState extends State<Profit> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children:[
                     SizedBox(
-                      width: 112,
+                      width: 110,
                       height: 42,
                       child: Text(
                         'R\$0,12',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 36,
+                          fontSize: 24,
                           fontFamily: 'Open Sans',
                           fontWeight: FontWeight.w300,
                           height: 1,
@@ -225,13 +224,17 @@ class _ProfitState extends State<Profit> {
                       ),
                     ),
                     SizedBox(
-                      width: 93,
+                      width: 10,
+                      height: 0,
+                    ),
+                    SizedBox(
+                      width: 110,
                       height: 42,
                       child: Text(
-                        'R\$0,6',
+                        'R\$0,60',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 36,
+                          fontSize: 24,
                           fontFamily: 'Open Sans',
                           fontWeight: FontWeight.w300,
                           height: 1,
@@ -240,35 +243,40 @@ class _ProfitState extends State<Profit> {
                     ),
                   ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.center,
-                  children:[
-                    Container(
-                      width: 312.92,
-                      height: 51.32,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 252,
-                      height: 28,
-                      child: Text(
-                        'Insira o valor do kWh',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Color(0xFF9D9D9D),
-                          fontSize: 24,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Form(
+                  child: TextFormField(
+                      key: Key('earnings'),
+                      controller: _valor,
+                      style: const TextStyle(fontSize: 22),
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        fillColor: Colors.white,
+                        labelText: 'Informe o valor do kWh',
+                        suffix: Text(
+                          'Wh',
+                          style: TextStyle(fontSize: 14),
                         ),
                       ),
-                    )
-                  ],
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Informe o valor do kWh';
+                        } else if (double.parse(value) < 0) {
+                          return 'Valor mínimo é 1 real';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          lucro = (value.isEmpty)
+                              ? 0
+                              : double.parse(value)/10;
+                        });
+                      }),
+                ),
               ),
             ]),
       ),

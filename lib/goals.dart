@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
-import 'package:get/get.dart';
-import 'blecontroller.dart';
+import 'package:flutter/services.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 class Goals extends StatefulWidget {
   const Goals({super.key});
@@ -12,10 +11,10 @@ class Goals extends StatefulWidget {
 }
 
 class _GoalsState extends State<Goals> {
-  int Wh = 0;
-  int temp = 43;
-  int eff = 75;
-  double today = 3.4;
+
+  final _valor = TextEditingController();
+  double meta = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,67 +22,136 @@ class _GoalsState extends State<Goals> {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
+      body: SingleChildScrollView(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 100,
-              ),
-              //Temperatura
-              const Text(
-                '05/09/2023',
-                style: TextStyle(
-                  fontSize: 40,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w200,
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [],
-              ),
-              const SizedBox(
-                height: 44,
-              ),
-              //Economia de Energia
-              const Text(
-                'Progresso:',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w200,
-                ),
-              ),
-              const Text(
-                '53%',
-                style: TextStyle(
-                  fontSize: 48,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w200,
-                ),
-              ),
-        CircularPercentIndicator(
-            radius: 100.0,
-            lineWidth: 10.0,
-            percent: 0.3,
-          progressColor: Colors.white,
-         backgroundColor: Color(0xFF6B56B9),
-            center: Icon(
-              Icons.thunderstorm,
-              size: 50.0,
-              color: Colors.blue,
-            ),),
+              Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/background.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 100,
+                        ),
+                        //Temperatura
+                        const Text(
+                          '05/09/2023',
+                          style: TextStyle(
+                            fontSize: 40,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w200,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 48,
+                        ),
+                        //Economia de Energia
+                        const Text(
+                          'Progresso:',
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w200,
+                          ),
+                        ),
+                        const Text(
+                          '53%',
+                          style: TextStyle(
+                            fontSize: 48,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w200,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 26,
+                        ),
+                        CircularPercentIndicator(
+                          radius: 110.0,
+                          lineWidth: 10.0,
+                          percent: 0.53,
+                          progressColor: Colors.white,
+                          backgroundColor: Color(0xFFFFFFF),
+                          center: const Icon(
+                            Icons.sunny,
+                            size: 100.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 45,
+                                height: 46.22,
+                                child: Image.asset('assets/images/metas.png'),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(5),
+                                child: Text(
+                                  ' Meta: $meta Wh',
+                                  style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w200,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ]),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Form(
+                            child: TextFormField(
+                                key: Key('goals'),
+                                controller: _valor,
+                                style: const TextStyle(fontSize: 22),
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  labelText: 'Modificar Meta',
+                                  suffix: Text(
+                                    'Wh',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ),
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Informe o valor da meta';
+                                  } else if (double.parse(value) < 0) {
+                                    return 'Meta mínima é 1Wh';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    meta = (value.isEmpty)
+                                        ? 0
+                                        : double.parse(value) / 10;
+                                  });
+                                }),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 47,
+                        ),
+                      ]))
             ]),
       ),
     );

@@ -1,15 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:location_permissions/location_permissions.dart';
+import 'package:provider/provider.dart';
 
 class BleController {
   final flutterReactiveBle = FlutterReactiveBle();
   late StreamSubscription<ConnectionStateUpdate> connection;
   late QualifiedCharacteristic characteristic;
-  RxString potencia = ''.obs;
+  RxDouble potencia = 0.0.obs;
   RxString status = 'not connected'.obs;
+  RxDouble eff = 0.0.obs;
+  RxDouble soma = 0.0.obs;
+  RxDouble today = 0.0.obs;
+  RxDouble percent = 0.0.obs;
 
   void connect() async {
     flutterReactiveBle
@@ -41,8 +44,18 @@ class BleController {
         flutterReactiveBle
             .subscribeToCharacteristic(characteristic)
             .listen((data) {
-          potencia.value = String.fromCharCodes(data);
-          print(potencia);
+
+              //Obtendo valor de potência
+          potencia.value = double.parse(String.fromCharCodes(data));
+
+          //Calculando eficiência elétrica
+          eff.value = (potencia.value * 100)/3.3;
+
+          //Somando os valores de potência para descobrir o Wh
+          soma.value = potencia.value + potencia.value;
+          //Para obter o valor de Wh, são realizadas 1200 medições
+          today.value = soma.value/1200;
+
         });
       }
     });
