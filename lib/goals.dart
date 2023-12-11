@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class Goals extends StatefulWidget {
   const Goals({super.key});
@@ -11,10 +12,13 @@ class Goals extends StatefulWidget {
 }
 
 class _GoalsState extends State<Goals> {
-
   final _valor = TextEditingController();
+  final _wh = TextEditingController();
   double meta = 0;
-
+  double hoje = 0;
+  double percent = 0.0;
+  double progress = 0.0;
+  DateTime data = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +46,9 @@ class _GoalsState extends State<Goals> {
                           height: 100,
                         ),
                         //Temperatura
-                        const Text(
-                          '05/09/2023',
+                        Text(
+                          DateFormat("dd/MM/yyyy")
+                              .format(data),
                           style: TextStyle(
                             fontSize: 40,
                             color: Colors.white,
@@ -62,8 +67,8 @@ class _GoalsState extends State<Goals> {
                             fontWeight: FontWeight.w200,
                           ),
                         ),
-                        const Text(
-                          '53%',
+                         Text(
+                          '${progress.toStringAsFixed(2)}%',
                           style: TextStyle(
                             fontSize: 48,
                             color: Colors.white,
@@ -76,7 +81,7 @@ class _GoalsState extends State<Goals> {
                         CircularPercentIndicator(
                           radius: 110.0,
                           lineWidth: 10.0,
-                          percent: 0.53,
+                          percent: percent,
                           progressColor: Colors.white,
                           backgroundColor: Color(0xFFFFFFF),
                           center: const Icon(
@@ -144,14 +149,51 @@ class _GoalsState extends State<Goals> {
                                     meta = (value.isEmpty)
                                         ? 0
                                         : double.parse(value) / 10;
+                                    percent = hoje/meta;
                                   });
                                 }),
                           ),
                         ),
-                        const SizedBox(
-                          height: 47,
-                        ),
-                      ]))
+                  Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Form(
+                        child: TextFormField(
+                            key: Key('goals'),
+                            controller: _wh,
+                            style: const TextStyle(fontSize: 22),
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              filled: true,
+                              fillColor: Colors.white,
+                              labelText: 'Insira Wh',
+                              suffix: Text(
+                                'Wh',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Informe o valor da meta';
+                              } else if (double.parse(value) < 0) {
+                                return 'Meta mínima é 1Wh';
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              setState(() {
+                                hoje = (value.isEmpty)
+                                    ? 0
+                                    : double.parse(value) / 10;
+                                percent = hoje/meta;
+                                progress = percent*100;
+                              });
+                            }),
+                      ),
+                  )]))
             ]),
       ),
     );

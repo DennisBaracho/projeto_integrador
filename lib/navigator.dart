@@ -35,7 +35,6 @@ class _NavigatorState extends State<Navigator> {
     Goals(),
     Reports(),
     Profit(),
-
   ];
 
   @override
@@ -74,7 +73,8 @@ class _NavigatorState extends State<Navigator> {
               ),
             ),
             CustomNavigationBarItem(
-              icon: const Icon(Icons.calendar_month_outlined, color: Colors.white),
+              icon: const Icon(Icons.calendar_month_outlined,
+                  color: Colors.white),
               title: const Text(
                 'Relatórios',
                 style: TextStyle(

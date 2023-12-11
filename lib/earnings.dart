@@ -3,6 +3,7 @@ import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:get/get.dart';
 import 'blecontroller.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class Profit extends StatefulWidget {
   const Profit({super.key});
@@ -14,10 +15,12 @@ class Profit extends StatefulWidget {
 class _ProfitState extends State<Profit> {
   final flutterReactiveBle = FlutterReactiveBle();
   final BleController c = Get.put(BleController());
-
+  DateTime data = DateTime.now();
   final _valor = TextEditingController();
+  final _wh = TextEditingController();
+  double hoje = 0;
   double lucro = 0;
-
+  double economia = 0;
   @override
   Widget build(BuildContext context) {
     print('Build');
@@ -44,8 +47,8 @@ class _ProfitState extends State<Profit> {
                         height: 100,
                       ),
                       //Temperatura
-                      const Text(
-                        '05/09/2023',
+                      Text(
+                        DateFormat("dd/MM/yyyy").format(data),
                         style: TextStyle(
                           fontSize: 40,
                           color: Colors.white,
@@ -124,24 +127,14 @@ class _ProfitState extends State<Profit> {
                                 ),
                               ),
                             ),
-                            const Positioned(
+                             Positioned(
                               left: 40,
                               top: 50,
                               child: Text.rich(
                                 TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: '3.4Wh\n\n\n',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 22,
-                                        fontFamily: 'Montserrat',
-                                        fontWeight: FontWeight.w300,
-                                        height: 0,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '0,635R\$/kWh',
+                                      text: '$lucro R\$/kWh',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 22,
@@ -159,7 +152,7 @@ class _ProfitState extends State<Profit> {
                               left: 14,
                               top: 73,
                               child: Text(
-                                'R\$0,002',
+                                'R\$$economia',
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 48,
@@ -278,14 +271,50 @@ class _ProfitState extends State<Profit> {
                                 setState(() {
                                   lucro = (value.isEmpty)
                                       ? 0
-                                      : double.parse(value) / 10;
+                                      : double.parse(value)/1000;
+                                  economia = lucro * hoje;
                                 });
                               }),
                         ),
                       ),
-                      const SizedBox(
-                        height: 70,
-                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Form(
+                          child: TextFormField(
+                              key: Key('goals'),
+                              controller: _wh,
+                              style: const TextStyle(fontSize: 22),
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                filled: true,
+                                fillColor: Colors.white,
+                                labelText: 'Insira Wh',
+                                suffix: Text(
+                                  'Wh',
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                              ],
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Informe o valor da meta';
+                                } else if (double.parse(value) < 0) {
+                                  return 'Meta mínima é 1Wh';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                setState(() {
+                                  hoje = (value.isEmpty)
+                                      ? 0
+                                      : double.parse(value) / 10;
+                                  economia = lucro * hoje;
+                                });
+                              }),
+                        ),
+                      )
                     ]),
               ),
             ])));

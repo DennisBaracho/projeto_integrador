@@ -44,18 +44,16 @@ class BleController {
         flutterReactiveBle
             .subscribeToCharacteristic(characteristic)
             .listen((data) {
-
-              //Obtendo valor de potência
+          //Obtendo valor de potência
           potencia.value = double.parse(String.fromCharCodes(data));
 
           //Calculando eficiência elétrica
-          eff.value = (potencia.value * 100)/3.3;
+          eff.value = (potencia.value * 100) / 3.3;
 
           //Somando os valores de potência para descobrir o Wh
           soma.value = potencia.value + potencia.value;
           //Para obter o valor de Wh, são realizadas 1200 medições
-          today.value = soma.value/1200;
-
+          today.value = soma.value / 1200;
         });
       }
     });
