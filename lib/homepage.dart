@@ -16,7 +16,6 @@ class _HomePageState extends State<HomePage> {
 
   int Wh = 0;
   int temp = 43;
-  double today = 3.4;
 
   @override
   Widget build(BuildContext context) {
@@ -147,14 +146,15 @@ class _HomePageState extends State<HomePage> {
                     Positioned(
                       left: 42,
                       top: 76,
-                      child: Text(
-                        '- $today -',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 48,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w300,
-                          height: 0,
+                      child: Obx(
+                            () => Text(
+                          '- ${c.today.toStringAsFixed(2)} -',
+                          style: const TextStyle(
+                              fontSize: 48,
+                              height: 0,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w300,
+                              color: Colors.white),
                         ),
                       ),
                     ),
@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.all(5),
                     child: Obx(
                       () => Text(
-                        'Tensão: ${c.potencia} V',
+                        'Gerando agora: ${c.potencia} W',
                         style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w200,
@@ -203,12 +203,14 @@ class _HomePageState extends State<HomePage> {
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Padding(
                   padding: const EdgeInsets.all(10),
-                  child: Text(
-                    'Eficiência Elétrica: 75%',
-                    style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w200,
-                        color: Colors.white),
+                  child: Obx(
+                        () => Text(
+                      'Eficiência Elétrica: ${c.eff.toStringAsFixed(2)} %',
+                      style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w200,
+                          color: Colors.white),
+                    ),
                   ),
                 ),
               ]),

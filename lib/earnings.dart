@@ -16,8 +16,6 @@ class _ProfitState extends State<Profit> {
 
   int Wh = 0;
   int temp = 43;
-  int eff = 75;
-  double today = 3.4;
   final _valor = TextEditingController();
   double lucro = 0;
 

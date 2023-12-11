@@ -12,8 +12,6 @@ class Goals extends StatefulWidget {
 class _GoalsState extends State<Goals> {
   int Wh = 0;
   int temp = 43;
-  int eff = 75;
-  double today = 3.4;
   final _valor = TextEditingController();
   double meta = 0;
 
@@ -77,7 +75,7 @@ class _GoalsState extends State<Goals> {
                         CircularPercentIndicator(
                           radius: 110.0,
                           lineWidth: 10.0,
-                          percent: 0.3,
+                          percent: 0.53,
                           progressColor: Colors.white,
                           backgroundColor: Color(0xFFFFFFF),
                           center: const Icon(
