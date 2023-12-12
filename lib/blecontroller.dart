@@ -52,6 +52,7 @@ class BleController {
           //Calculando eficiência elétrica
           eff.value = (potencia.value * 100);
 
+          /*
           //Somando os valores de potência para descobrir o Wh
           somah.value = potencia.value + potencia.value;
           countmin++;
@@ -60,9 +61,10 @@ class BleController {
           if (counth > 1200) {
             todayh.value = 0.0;
           }
+          */
 
           //Somando os valores de potência para descobrir o Wmin
-          somamin.value = potencia.value + potencia.value;
+          somamin.value = potencia.value + somamin.value;
           countmin++;
           //Para obter o valor de Wmin, são realizadas 20 medições
           todaymin.value = somamin.value / 20;

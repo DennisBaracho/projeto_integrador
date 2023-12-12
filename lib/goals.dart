@@ -144,7 +144,9 @@ class _GoalsState extends State<Goals> {
                                     meta = (value.isEmpty)
                                         ? 0
                                         : double.parse(value);
-                                    percent = hoje / meta;
+                                    if (meta > hoje) {
+                                      percent = hoje / meta;
+                                    }
                                   });
                                 }),
                           ),
@@ -170,9 +172,9 @@ class _GoalsState extends State<Goals> {
                                 keyboardType: TextInputType.number,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Informe o valor da meta';
-                                  } else if (double.parse(value) < 0) {
-                                    return 'Meta mínima é 1Wh';
+                                    return 'Informe o Wh';
+                                  } else if (double.parse(value) > meta) {
+                                    return 'Deve ser menor que a meta';
                                   }
                                   return null;
                                 },
@@ -181,8 +183,10 @@ class _GoalsState extends State<Goals> {
                                     hoje = (value.isEmpty)
                                         ? 0
                                         : double.parse(value);
-                                    percent = hoje / meta;
-                                    progress = percent * 100;
+                                    if (hoje < meta) {
+                                      percent = hoje / meta;
+                                      progress = percent * 100;
+                                    }
                                   });
                                 }),
                           ),

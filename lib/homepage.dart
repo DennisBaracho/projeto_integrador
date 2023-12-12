@@ -148,11 +148,11 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Positioned(
-                              left: 35,
+                              left: 18,
                               top: 76,
                               child: Obx(
                                 () => Text(
-                                  '- ${c.todaymin.toStringAsFixed(2)} -',
+                                  '- ${c.todaymin.toStringAsFixed(3)} -',
                                   style: const TextStyle(
                                       fontSize: 48,
                                       height: 0,

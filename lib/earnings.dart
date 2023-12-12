@@ -299,7 +299,7 @@ class _ProfitState extends State<Profit> {
                               keyboardType: TextInputType.number,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Informe o valor do kWh';
+                                  return 'Informe o Wh';
                                 }
                                 return null;
                               },
