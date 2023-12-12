@@ -143,7 +143,7 @@ class _GoalsState extends State<Goals> {
                                   setState(() {
                                     meta = (value.isEmpty)
                                         ? 0
-                                        : double.parse(value) / 10;
+                                        : double.parse(value);
                                     percent = hoje / meta;
                                   });
                                 }),
@@ -180,7 +180,7 @@ class _GoalsState extends State<Goals> {
                                   setState(() {
                                     hoje = (value.isEmpty)
                                         ? 0
-                                        : double.parse(value) / 10;
+                                        : double.parse(value);
                                     percent = hoje / meta;
                                     progress = percent * 100;
                                   });

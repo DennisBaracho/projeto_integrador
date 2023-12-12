@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                               top: 76,
                               child: Obx(
                                 () => Text(
-                                  '- ${c.todayh.toStringAsFixed(2)} -',
+                                  '- ${c.todaymin.toStringAsFixed(2)} -',
                                   style: const TextStyle(
                                       fontSize: 48,
                                       height: 0,
@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ]),
                       const SizedBox(
-                        height: 44,
+                        height: 160,
                       ),
                     ]),
               ),
