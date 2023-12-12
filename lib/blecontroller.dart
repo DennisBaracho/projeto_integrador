@@ -50,7 +50,7 @@ class BleController {
           //Obtendo valor de potência
           potencia.value = double.parse(String.fromCharCodes(data));
           //Calculando eficiência elétrica
-          eff.value = (potencia.value * 100) / 3.3;
+          eff.value = (potencia.value * 100);
 
           //Somando os valores de potência para descobrir o Wh
           somah.value = potencia.value + potencia.value;
