@@ -183,7 +183,7 @@ class _GoalsState extends State<Goals> {
                                     hoje = (value.isEmpty)
                                         ? 0
                                         : double.parse(value);
-                                    if (hoje < meta) {
+                                    if (hoje <= meta) {
                                       percent = hoje / meta;
                                       progress = percent * 100;
                                     }

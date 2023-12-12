@@ -42,31 +42,9 @@ class _HomePageState extends State<HomePage> {
                         height: 52,
                       ),
                       //Temperatura
-                      const Text(
-                        'Temperatura Interna',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w200,
-                        ),
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            width: 55,
-                            height: 53,
-                            child: Image.asset('assets/images/temperature.png'),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(0),
-                            child: Text('$temp º',
-                                style: const TextStyle(
-                                  fontSize: 48,
-                                  fontWeight: FontWeight.w200,
-                                  color: Colors.white,
-                                )),
-                          ),
                         ],
                       ),
                       const SizedBox(
@@ -221,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ]),
                       const SizedBox(
-                        height: 160,
+                        height: 250,
                       ),
                     ]),
               ),
