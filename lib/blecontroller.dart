@@ -21,9 +21,9 @@ class BleController {
       connectionTimeout: const Duration(seconds: 2),
     )
         .listen((connectionState) {
-      // Handle connection state updates
+      // Analisa o estado da conexão
     }, onError: (Object error) {
-      // Handle a possible error
+      // Controla possíveis Erros
     });
 
     status.value = 'connecting...';
