@@ -75,7 +75,7 @@ void loop() {
   }
     if (enviar.repeat()) { //Envio de dados de 3 em 3s.
       tensao = analogRead(A4) * 5 / 1023.0; //Lê a corrente na placa.
-      potencia = tensao*tensao; //Cálculo da potência.
+      potencia = (tensao*tensao)/26; //Cálculo da potência.
       bluetooth.print(potencia); //Envio do dado de potência.
     }
   
