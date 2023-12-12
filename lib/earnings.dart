@@ -22,7 +22,6 @@ class _ProfitState extends State<Profit> {
   double economia = 0;
   double economiamensal = 0;
   double economiatotal = 0;
-
   @override
   Widget build(BuildContext context) {
     print('Build');
@@ -130,7 +129,7 @@ class _ProfitState extends State<Profit> {
                               ),
                             ),
                              Positioned(
-                              left: 40,
+                              left: 32,
                               top: 50,
                               child: Text.rich(
                                 TextSpan(
@@ -276,7 +275,6 @@ class _ProfitState extends State<Profit> {
                                       : double.parse(value);
                                   economia = lucro/1000 * hoje;
                                   economiamensal = economia * 30;
-                                  economiatotal = economia + economia;
                                 });
                               }),
                         ),
@@ -312,7 +310,6 @@ class _ProfitState extends State<Profit> {
                                       : double.parse(value);
                                   economia = lucro/1000 * hoje;
                                   economiamensal = economia * 30;
-                                  economiatotal = economia + economia;
                                 });
                               }),
                         ),
