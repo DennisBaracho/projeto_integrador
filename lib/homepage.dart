@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:get/get.dart';
 import 'blecontroller.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -153,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                               top: 76,
                               child: Obx(
                                 () => Text(
-                                  '- ${c.today.toStringAsFixed(2)} -',
+                                  '- ${c.todayh.toStringAsFixed(2)} -',
                                   style: const TextStyle(
                                       fontSize: 48,
                                       height: 0,
@@ -220,7 +219,6 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-
                           ]),
                       const SizedBox(
                         height: 44,

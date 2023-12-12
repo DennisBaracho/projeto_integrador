@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:get/get.dart';
 import 'blecontroller.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class Profit extends StatefulWidget {
@@ -21,6 +20,9 @@ class _ProfitState extends State<Profit> {
   double hoje = 0;
   double lucro = 0;
   double economia = 0;
+  double economiamensal = 0;
+  double economiatotal = 0;
+
   @override
   Widget build(BuildContext context) {
     print('Build');
@@ -134,8 +136,8 @@ class _ProfitState extends State<Profit> {
                                 TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: '$lucro R\$/kWh',
-                                      style: TextStyle(
+                                      text: '${lucro.toStringAsFixed(3)} R\$/kWh',
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 22,
                                         fontFamily: 'Montserrat',
@@ -152,7 +154,7 @@ class _ProfitState extends State<Profit> {
                               left: 14,
                               top: 73,
                               child: Text(
-                                'R\$$economia',
+                                'R\$${economia.toStringAsFixed(3)}',
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 48,
@@ -211,7 +213,7 @@ class _ProfitState extends State<Profit> {
                             width: 110,
                             height: 42,
                             child: Text(
-                              'R\$0,12',
+                              'R\$${economiamensal.toStringAsFixed(2)}',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -229,7 +231,7 @@ class _ProfitState extends State<Profit> {
                             width: 110,
                             height: 42,
                             child: Text(
-                              'R\$0,60',
+                              'R\$${economiatotal.toStringAsFixed(2)}',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -254,7 +256,7 @@ class _ProfitState extends State<Profit> {
                                 fillColor: Colors.white,
                                 labelText: 'Informe o valor do kWh',
                                 suffix: Text(
-                                  'Wh',
+                                  'R\$',
                                   style: TextStyle(fontSize: 14),
                                 ),
                               ),
@@ -271,8 +273,10 @@ class _ProfitState extends State<Profit> {
                                 setState(() {
                                   lucro = (value.isEmpty)
                                       ? 0
-                                      : double.parse(value)/1000;
-                                  economia = lucro * hoje;
+                                      : double.parse(value);
+                                  economia = lucro/1000 * hoje;
+                                  economiamensal = economia * 30;
+                                  economiatotal = economia + economia;
                                 });
                               }),
                         ),
@@ -295,13 +299,9 @@ class _ProfitState extends State<Profit> {
                                 ),
                               ),
                               keyboardType: TextInputType.number,
-                              inputFormatters: [
-                              ],
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Informe o valor da meta';
-                                } else if (double.parse(value) < 0) {
-                                  return 'Meta mínima é 1Wh';
+                                  return 'Informe o valor do kWh';
                                 }
                                 return null;
                               },
@@ -309,12 +309,17 @@ class _ProfitState extends State<Profit> {
                                 setState(() {
                                   hoje = (value.isEmpty)
                                       ? 0
-                                      : double.parse(value) / 10;
-                                  economia = lucro * hoje;
+                                      : double.parse(value);
+                                  economia = lucro/1000 * hoje;
+                                  economiamensal = economia * 30;
+                                  economiatotal = economia + economia;
                                 });
                               }),
                         ),
-                      )
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
                     ]),
               ),
             ])));

@@ -1,7 +1,6 @@
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 class BleController {
   final flutterReactiveBle = FlutterReactiveBle();
@@ -10,9 +9,13 @@ class BleController {
   RxDouble potencia = 0.0.obs;
   RxString status = 'not connected'.obs;
   RxDouble eff = 0.0.obs;
-  RxDouble soma = 0.0.obs;
-  RxDouble today = 0.0.obs;
+  RxDouble somah = 0.0.obs;
+  RxDouble somamin = 0.0.obs;
+  RxDouble todayh = 0.0.obs;
+  RxDouble todaymin = 0.0.obs;
   RxDouble percent = 0.0.obs;
+  RxInt countmin = 0.obs;
+  RxInt counth = 0.obs;
 
   void connect() async {
     flutterReactiveBle
@@ -46,14 +49,26 @@ class BleController {
             .listen((data) {
           //Obtendo valor de potência
           potencia.value = double.parse(String.fromCharCodes(data));
-
           //Calculando eficiência elétrica
           eff.value = (potencia.value * 100) / 3.3;
 
           //Somando os valores de potência para descobrir o Wh
-          soma.value = potencia.value + potencia.value;
+          somah.value = potencia.value + potencia.value;
+          countmin++;
           //Para obter o valor de Wh, são realizadas 1200 medições
-          today.value = soma.value / 1200;
+          todayh.value = somah.value / 1200;
+          if (counth > 1200) {
+            todayh.value = 0.0;
+          }
+
+          //Somando os valores de potência para descobrir o Wmin
+          somamin.value = potencia.value + potencia.value;
+          countmin++;
+          //Para obter o valor de Wmin, são realizadas 20 medições
+          todaymin.value = somamin.value / 20;
+          if (countmin > 20) {
+            todaymin.value = 0.0;
+          }
         });
       }
     });
